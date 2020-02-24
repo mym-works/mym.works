@@ -57,7 +57,7 @@ Resources:
             Principal:
               AWS: !Sub
                 - 'arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${oai}'
-                - { oai: !ImportValue akatsuki-stpr-cloudfront-oai }
+                - { oai: !ImportValue mym-works-cloudfront-oai }
 
 Outputs:
   s3:
