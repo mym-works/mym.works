@@ -7,6 +7,10 @@ You can change AWS PROFILE bellow the commands.This time I put the unique my pro
 
 Change [the bucket policy principal](https://github.com/mym-kingbob/mym.works/blob/infra/infra/s3.cf.yml#L58) from OriginAccessIdentity to allow all get all resources.
 
+```
+AWS: '*'
+```
+
 The following command will be executed.
 
 ```
