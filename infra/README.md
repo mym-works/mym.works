@@ -5,6 +5,8 @@ You can change AWS PROFILE bellow the commands.This time I put the unique my pro
 
 ## 1. Create the S3 bucket for the delivery of the contents
 
+Change [the bucket policy principal](https://github.com/mym-kingbob/mym.works/blob/infra/infra/s3.cf.yml#L58) from OriginAccessIdentity to allow all get all resources.
+
 The following command will be executed.
 
 ```
@@ -43,6 +45,7 @@ Add the A Record alias target from the applicant zone in the Route53.
 
 ## 6. Update the 1. stack for import the 4. stack resources( OriginAccessIdentity )
 
+Undo the Bucket policy to use the OriginAccessIdentity.
 The following command will be executed.
 
 ```
