@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'S3 Bucket for mym.works web site'
+
+Parameters:
+  Environment:
+    Description: Environment
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - stg
+      - prd
+Conditions:
+  IsProduction: !Equals [!Ref Environment, prd]
+  IsStaging: !Equals [!Ref Environment, stg]
+  IsDevelopment: !Equals [!Ref Environment, dev]
+
+Resources:
+  Websitebucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      AccessControl: Private
+      BucketName: !If
+        - IsProduction
+        - 'mym.works'
+        - !Join
+          - '.'
+          - - !Ref Environment
+            - 'mym.works'
+      Tags:
+        - Key: Name
+          Value: !If
+            - IsProduction
+            - 'mym.works'
+            - !Join
+              - '.'
+              - - !Ref Environment
+                - 'mym.works'
+
+  WebsitebucketPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket:
+        Ref: Websitebucket
+      PolicyDocument:
+        Statement:
+          - Action:
+              - 's3:GetObject'
+            Effect: 'Allow'
+            Resource:
+              - !Join
+                - ''
+                - - !GetAtt
+                    - Websitebucket
+                    - Arn
+                  - /*
+            Principal:
+              AWS: !Sub
+                - 'arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${oai}'
+                - { oai: !ImportValue mym-works-cloudfront-oai }
+
+Outputs:
+  s3:
+    Value: !GetAtt
+      - Websitebucket
+      - DomainName
+    Export:
+      Name: !Join
+        - '-'
+        - - mym-works-s3
+          - !Ref Environment

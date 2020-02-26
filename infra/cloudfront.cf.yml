@@ -1,0 +1,116 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'CloudFront for mym.works distribution'
+
+Parameters:
+  Environment:
+    Description: Environment
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - stg
+      - prd
+
+  AcmCertificateArnString:
+    # AcmCertificateArnString
+    Default: ''
+    Type: String
+
+Conditions:
+  IsProduction: !Equals [!Ref Environment, prd]
+  IsStaging: !Equals [!Ref Environment, stg]
+  IsDevelopment: !Equals [!Ref Environment, dev]
+
+Resources:
+  CloudFrontOriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !If
+          - IsProduction
+          - 'mym.works'
+          - !Join
+            - '.'
+            - - !Ref Environment
+              - 'mym.works'
+
+  CloudFront:
+    Type: 'AWS::CloudFront::Distribution'
+    Properties:
+      DistributionConfig:
+        Aliases:
+          - !If
+            - IsProduction
+            - 'mym.works'
+            - !Join
+              - '.'
+              - - !Ref Environment
+                - 'mym.works'
+          - !Ref AWS::NoValue
+        Comment: !If
+          - IsProduction
+          - 'mym.works'
+          - !Join
+            - '.'
+            - - !Ref Environment
+              - 'mym.works'
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods:
+            - GET
+            - HEAD
+          Compress: true
+          DefaultTTL: !If
+            - IsProduction
+            - 60
+            - 60
+          ForwardedValues:
+            QueryString: false
+          MaxTTL: !If
+            - IsProduction
+            - 60
+            - 60
+          MinTTL: !If
+            - IsProduction
+            - 60
+            - 60
+          TargetOriginId: mym-works-s3
+          ViewerProtocolPolicy: redirect-to-https
+        Origins:
+          - Id: mym-works-s3
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub
+                - 'origin-access-identity/cloudfront/${oai}'
+                - { oai: !Ref CloudFrontOriginAccessIdentity }
+            DomainName: !ImportValue
+              'Fn::Join':
+                - '-'
+                - - 'mym-works-s3'
+                  - !Ref Environment
+        DefaultRootObject: 'index.html'
+        Enabled: true
+        HttpVersion: 'http2'
+        IPV6Enabled: true
+        Logging:
+          Bucket: !ImportValue
+            'Fn::Join':
+              - '-'
+              - - 'mym-works-s3-logs'
+                - !Ref Environment
+          Prefix: !Join
+            - '/'
+            - - 'logs/cloudfront/mym-works'
+              - !Ref Environment
+        PriceClass: 'PriceClass_All'
+        ViewerCertificate:
+          AcmCertificateArn: !Ref AcmCertificateArnString
+          MinimumProtocolVersion: 'TLSv1.2_2018'
+          SslSupportMethod: 'sni-only'
+
+Outputs:
+  OriginAccessIdentity:
+    Value: !Ref CloudFrontOriginAccessIdentity
+    Export:
+      Name: 'mym-works-cloudfront-oai'

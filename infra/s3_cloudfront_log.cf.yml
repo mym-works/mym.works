@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: CloudFront access log to S3 Bucket for mym.works
+
+Parameters:
+  Environment:
+    Description: Environment
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - stg
+      - prd
+
+Conditions:
+  IsProduction: !Equals [!Ref Environment, prd]
+
+Resources:
+  StprLoggingBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      AccessControl: 'Private'
+      BucketName: !If
+        - IsProduction
+        - 'mym.works-logs'
+        - !Join
+          - '.'
+          - - !Ref Environment
+            - 'mym.works-logs'
+      LifecycleConfiguration:
+        Rules:
+          # 1 year saving
+          - ExpirationInDays: 365
+            Status: 'Enabled'
+      Tags:
+        - Key: Name
+          Value: !Join
+            - '-'
+            - - 'mym-works-s3-logging'
+              - !Ref Environment
+
+Outputs:
+  s3:
+    Value: !GetAtt
+      - StprLoggingBucket
+      - DomainName
+    Export:
+      Name: !Join
+        - '-'
+        - - 'mym-works-s3-logs'
+          - !Ref Environment
