@@ -3,6 +3,10 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -28,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     },
   },
+  list: {
+    width: 200,
+  },
   tab: {
     textTransform: 'none',
   },
@@ -47,6 +54,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
+
+  const [drawerState, setState] = React.useState({
+    left: false,
+  });
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -74,6 +86,35 @@ export default function PrimarySearchAppBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    setState({ ...drawerState, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <div
+      className={classes.list}
+      role='presentation'
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {['About', 'Skills', 'Blog', 'Contact'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -131,7 +172,21 @@ export default function PrimarySearchAppBar() {
               color='inherit'
               aria-label='open drawer'
             >
-              <MenuIcon />
+              <div>
+                {['left'].map((anchor) => (
+                  <React.Fragment key={anchor}>
+                    <MenuIcon onClick={toggleDrawer(anchor, true)} />
+                    <SwipeableDrawer
+                      anchor={anchor}
+                      open={drawerState[anchor]}
+                      onClose={toggleDrawer(anchor, false)}
+                      onOpen={toggleDrawer(anchor, true)}
+                    >
+                      {list(anchor)}
+                    </SwipeableDrawer>
+                  </React.Fragment>
+                ))}
+              </div>
             </IconButton>
           </div>
           <a href='https://mym.works'>
