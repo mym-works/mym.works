@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function MenuAppBar() {
   const classes = useStyles();
 
   const [drawerState, setState] = React.useState({
