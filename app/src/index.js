@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import MenuBar from './MenuBar';
 import Top from './Top';
+import About from './About';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -17,6 +18,13 @@ ReactDOM.render(
     <Top />
   </React.StrictMode>,
   document.getElementById('top')
+);
+
+ReactDOM.render(
+  <React.StrictMode>
+    <About />
+  </React.StrictMode>,
+  document.getElementById('about')
 );
 
 // If you want your app to work offline and load faster, you can change
