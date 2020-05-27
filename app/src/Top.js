@@ -49,7 +49,7 @@ export default function Top() {
 
       <div className={classes.sectionMobile}>
         <div className={classes.topimage}>
-          <img src={mymlogoUrl} width='auto' height='200vmin' alt='' />
+          <img src={mymlogoUrl} width='auto' height='170vmin' alt='' />
           <div className={classes.title}>
             <h1>Backend</h1>
             <h1>&</h1>
