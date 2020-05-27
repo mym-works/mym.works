@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '5vmin',
     textAlign: 'left',
   },
+  blankSpace: {
+    marginBottom: '30vmin',
+  },
   grow: {
     flexGrow: 1,
   },
@@ -104,6 +107,7 @@ export default function About() {
           <p>{sentence}</p>
         </div>
       </div>
+      <div className={classes.blankSpace}></div>
     </div>
   );
 }
