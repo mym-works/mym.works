@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: 'pre-wrap',
     marginTop: '-30vmin',
     marginLeft: '50vmin',
+    marginBottom: '15vmin',
   },
   commentMobile: {
     fontSize: 'calc(10px + 1vmin)',
@@ -45,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
   },
   blankSpace: {
-    marginBottom: '30vmin',
+    marginBottom: '20vmin',
   },
   grow: {
     flexGrow: 1,
