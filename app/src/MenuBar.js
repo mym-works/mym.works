@@ -107,7 +107,7 @@ export default function MenuAppBar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['About', 'Skills', 'Blog', 'Contact'].map((text, index) => (
+        {['Top', 'About', 'Skills', 'Blog', 'Contact'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemText primary={text} />
           </ListItem>
@@ -200,6 +200,7 @@ export default function MenuAppBar() {
               textColor='primary'
               position='sticky'
             >
+              <Tab label='Top' className={classes.tab} />
               <Tab label='About' className={classes.tab} />
               <Tab label='Skills' className={classes.tab} />
               <Tab label='Blog' className={classes.tab} />
