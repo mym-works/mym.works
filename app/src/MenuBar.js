@@ -13,6 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { Link } from 'react-scroll';
 
 import mymlogoUrl from './img/mym_logo.png';
 import facebooklogoUrl from './img/facebook_logo.png';
@@ -53,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MenuAppBar() {
+  const menuList = ['Top', 'About', 'Skills', 'Blog', 'Contact'];
   const classes = useStyles();
 
   const [drawerState, setState] = React.useState({
@@ -107,10 +109,19 @@ export default function MenuAppBar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Top', 'About', 'Skills', 'Blog', 'Contact'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
+        {menuList.map((text, index) => (
+          <Link
+            activeClass='active'
+            to={text.toLowerCase()}
+            spy={true}
+            smooth={true}
+            offset={-70}
+            duration={800}
+          >
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>
@@ -193,19 +204,17 @@ export default function MenuAppBar() {
             <img src={mymlogoUrl} width='auto' height='40vmin' alt='' />
           </a>
           <div className={classes.sectionDesktop}>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              indicatorColor='primary'
-              textColor='primary'
-              position='sticky'
-            >
-              <Tab label='Top' className={classes.tab} />
-              <Tab label='About' className={classes.tab} />
-              <Tab label='Skills' className={classes.tab} />
-              <Tab label='Blog' className={classes.tab} />
-              <Tab label='Contact' className={classes.tab} />
-            </Tabs>
+            {menuList.map((text, index) => (
+              <Link
+                to={text.toLowerCase()}
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration={800}
+              >
+                <Tab label={text} className={classes.tab} />
+              </Link>
+            ))}
           </div>
 
           <div className={classes.grow} />
