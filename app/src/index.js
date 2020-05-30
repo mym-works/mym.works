@@ -4,6 +4,7 @@ import './index.css';
 import MenuBar from './MenuBar';
 import Top from './Top';
 import About from './About';
+import Blog from './Blog';
 import Contact from './Contact';
 import * as serviceWorker from './serviceWorker';
 
@@ -26,6 +27,13 @@ ReactDOM.render(
     <About />
   </React.StrictMode>,
   document.getElementById('about')
+);
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Blog />
+  </React.StrictMode>,
+  document.getElementById('blog')
 );
 
 ReactDOM.render(
