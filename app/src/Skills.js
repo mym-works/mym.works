@@ -5,6 +5,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import cloudData from './conf/skills/cloud';
 import languageData from './conf/skills/language';
+import developerToolData from './conf/skills/developertool';
 
 const useStyles = makeStyles((theme) => ({
   socialimageDesktop: {
@@ -86,6 +87,7 @@ export default function Skills() {
   const title = 'Skills_';
   const subtitle_cloud = 'Cloud Services';
   const subtitle_language = 'Languages';
+  const subtitle_devtool = 'Developer Tools';
 
   return (
     <div className={classes.grow}>
@@ -134,9 +136,32 @@ export default function Skills() {
               ))}
             </GridList>
           </div>
+
+          <div className={classes.subtitleDesktop}>
+            <h2>{subtitle_devtool}</h2>
+          </div>
+          <div className={classes.root}>
+            <GridList className={classes.gridList} cols={2.5}>
+              {developerToolData.map((tile) => (
+                <GridListTile key={tile.img}>
+                  <img src={tile.img} alt={tile.title} />
+                  <GridListTileBar
+                    title={tile.title}
+                    classes={{
+                      root: classes.titleBar,
+                      title: classes.title,
+                    }}
+                  />
+                </GridListTile>
+              ))}
+            </GridList>
+          </div>
         </div>
       </div>
 
+      {
+        // mobile version
+      }
       <div className={classes.sectionMobile}>
         <div className={classes.borderMobile}>
           <div className={classes.titleMobile}>
@@ -180,6 +205,31 @@ export default function Skills() {
         <div className={classes.root}>
           <GridList className={classes.gridList} cols={1.5}>
             {languageData.map((tile) => (
+              <GridListTile key={tile.img}>
+                <img src={tile.img} alt={tile.title} />
+                <GridListTileBar
+                  title={tile.title}
+                  classes={{
+                    root: classes.titleBar,
+                    title: classes.title,
+                  }}
+                />
+              </GridListTile>
+            ))}
+          </GridList>
+        </div>
+      </div>
+
+      <div className={classes.sectionMobile}>
+        <div className={classes.subtitleDesktop}>
+          <h2>{subtitle_devtool}</h2>
+        </div>
+      </div>
+
+      <div className={classes.sectionMobile}>
+        <div className={classes.root}>
+          <GridList className={classes.gridList} cols={1.5}>
+            {developerToolData.map((tile) => (
               <GridListTile key={tile.img}>
                 <img src={tile.img} alt={tile.title} />
                 <GridListTileBar
