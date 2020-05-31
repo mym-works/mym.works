@@ -3,7 +3,7 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import tileData from './tileData';
+import cloudData from './conf/skills/cloud';
 
 const useStyles = makeStyles((theme) => ({
   socialimageDesktop: {
@@ -99,7 +99,7 @@ export default function Skills() {
           </div>
           <div className={classes.root}>
             <GridList className={classes.gridList} cols={2.5}>
-              {tileData.map((tile) => (
+              {cloudData.map((tile) => (
                 <GridListTile key={tile.img}>
                   <img src={tile.img} alt={tile.title} />
                   <GridListTileBar
@@ -137,7 +137,7 @@ export default function Skills() {
       <div className={classes.sectionMobile}>
         <div className={classes.root}>
           <GridList className={classes.gridList} cols={1.5}>
-            {tileData.map((tile) => (
+            {cloudData.map((tile) => (
               <GridListTile key={tile.img}>
                 <img src={tile.img} alt={tile.title} />
                 <GridListTileBar
