@@ -1,21 +1,23 @@
-import aws_logo from '../../img/skills/cloud/aws.png';
-import gcp_logo from '../../img/skills/cloud/gcp.png';
+import python_logo from '../../img/skills/language/python.png';
+import go_logo from '../../img/skills/language/go.png';
+import ruby_logo from '../../img/skills/language/ruby.png';
+import node_logo from '../../img/skills/language/node.png';
 
 const languageData = [
   {
-    img: aws_logo,
+    img: python_logo,
     title: 'Python',
   },
   {
-    img: gcp_logo,
+    img: go_logo,
     title: 'Go',
   },
   {
-    img: gcp_logo,
+    img: ruby_logo,
     title: 'Ruby',
   },
   {
-    img: gcp_logo,
+    img: node_logo,
     title: 'Node.js',
   },
 ];
