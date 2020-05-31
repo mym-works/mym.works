@@ -4,6 +4,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import cloudData from './conf/skills/cloud';
+import languageData from './conf/skills/language';
 
 const useStyles = makeStyles((theme) => ({
   socialimageDesktop: {
@@ -49,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    border: 'thin #ff0000 solid',
     flexWrap: 'nowrap',
+    width: '100vmin',
   },
   title: {
     color: '#FFFFFF',
@@ -117,6 +118,22 @@ export default function Skills() {
           <div className={classes.subtitleDesktop}>
             <h2>{subtitle_language}</h2>
           </div>
+          <div className={classes.root}>
+            <GridList className={classes.gridList} cols={2.5}>
+              {languageData.map((tile) => (
+                <GridListTile key={tile.img}>
+                  <img src={tile.img} alt={tile.title} />
+                  <GridListTileBar
+                    title={tile.title}
+                    classes={{
+                      root: classes.titleBar,
+                      title: classes.title,
+                    }}
+                  />
+                </GridListTile>
+              ))}
+            </GridList>
+          </div>
         </div>
       </div>
 
@@ -138,6 +155,31 @@ export default function Skills() {
         <div className={classes.root}>
           <GridList className={classes.gridList} cols={1.5}>
             {cloudData.map((tile) => (
+              <GridListTile key={tile.img}>
+                <img src={tile.img} alt={tile.title} />
+                <GridListTileBar
+                  title={tile.title}
+                  classes={{
+                    root: classes.titleBar,
+                    title: classes.title,
+                  }}
+                />
+              </GridListTile>
+            ))}
+          </GridList>
+        </div>
+      </div>
+
+      <div className={classes.sectionMobile}>
+        <div className={classes.subtitleDesktop}>
+          <h2>{subtitle_language}</h2>
+        </div>
+      </div>
+
+      <div className={classes.sectionMobile}>
+        <div className={classes.root}>
+          <GridList className={classes.gridList} cols={1.5}>
+            {languageData.map((tile) => (
               <GridListTile key={tile.img}>
                 <img src={tile.img} alt={tile.title} />
                 <GridListTileBar
