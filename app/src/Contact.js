@@ -88,7 +88,7 @@ export default function Contact() {
                 </a>
               </IconButton>
               <IconButton aria-label='github' color='inherit'>
-                <a href='https://github.com/mym-kingbob'>
+                <a href='https://github.com/komayama'>
                   <img
                     src={githublogoUrl}
                     width='auto'
@@ -131,7 +131,7 @@ export default function Contact() {
             </a>
           </IconButton>
           <IconButton aria-label='github' color='inherit'>
-            <a href='https://github.com/mym-kingbob'>
+            <a href='https://github.com/komayama'>
               <img src={githublogoUrl} width='auto' height='50vmin' alt='' />
             </a>
           </IconButton>
