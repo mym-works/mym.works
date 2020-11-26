@@ -150,7 +150,7 @@ export default function MenuAppBar() {
 
       <MenuItem
         component='a'
-        href='https://github.com/mym-kingbob'
+        href='https://github.com/komayama'
         target='_blank'
       >
         <IconButton aria-label='github' color='inherit'>
@@ -229,7 +229,7 @@ export default function MenuAppBar() {
               </a>
             </IconButton>
             <IconButton aria-label='github' color='inherit'>
-              <a href='https://github.com/mym-kingbob'>
+              <a href='https://github.com/komayama'>
                 <img src={githublogoUrl} width='auto' height='30vmin' alt='' />
               </a>
             </IconButton>
